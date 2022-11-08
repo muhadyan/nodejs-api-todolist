@@ -1,0 +1,30 @@
+version: "3.2"
+services:
+  nodejs:
+    build:
+      context: .
+    image: muhadyan/nodejs-api-todolist
+    networks:
+      - backend
+    environment:
+      - MYSQL_HOST=172.17.0.1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=C3ndolbig
+      - MYSQL_DBNAME=todo4
+    volumes:
+      - ./www/:/var/www/html/
+    ports:
+      - "8090:3030"
+    container_name: nodejs-api-todolist
+  mysql:
+    image: mysql:5.7
+    networks:
+      - backend
+    environment:
+      - MYSQL_HOST=172.17.0.1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=C3ndolbig
+      - MYSQL_DBNAME=todo4
+    container_name: nodejs-api-todolist
+networks:
+  backend:
